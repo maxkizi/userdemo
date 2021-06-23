@@ -1,4 +1,4 @@
-package org.maxkizi.userdemo.controllers.temp;
+package org.maxkizi.userdemo.controllers;
 
 
 import org.maxkizi.userdemo.generated.dto.FullUserDto;
