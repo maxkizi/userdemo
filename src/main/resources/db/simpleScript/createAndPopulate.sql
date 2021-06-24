@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS app_user;
 
 create table app_user
 (
-    user_id         SERIAL PRIMARY KEY,
+    user_id    SERIAL PRIMARY KEY,
     first_name varchar(20) NOT NULL,
     last_name  varchar(20) NOT NULL,
     user_info  varchar(200),

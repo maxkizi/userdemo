@@ -59,6 +59,11 @@ public class UserServiceTest {
 
     }
 
+    @Test
+    public void simpleTest() {
+
+    }
+
 
     private FullUserDto simpleUser() {
         FullUserDto user = new FullUserDto();
