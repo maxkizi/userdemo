@@ -8,11 +8,10 @@ import org.maxkizi.userdemo.generated.dto.FullUserDto;
 import org.maxkizi.userdemo.generated.dto.PartUserDto;
 import org.maxkizi.userdemo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -31,14 +30,19 @@ public class UserServiceImpl implements UserService {
     public UserServiceImpl() {
     }
 
-    @Transactional
     @Override
-    public List<PartUserDto> list() {
-        List<User> all = repository.findAll();
-        return all.stream().map(u -> converter.toPartUserDto(u)).collect(Collectors.toList());
+    public Page<PartUserDto> list(Pageable pageable, String firstName) {
+        Page<User> users = repository.findAllByFirstName(pageable, firstName);
+        return users.map(u -> converter.toPartUserDto(u));
     }
 
-    //
+    @Override
+    public Page<PartUserDto> list(Pageable pageable) {
+        Page<User> users = repository.findAll(pageable);
+        return users.map(u -> converter.toPartUserDto(u));
+    }
+
+
     @Transactional
     @Override
     public FullUserDto findById(Long id) {

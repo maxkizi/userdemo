@@ -5,6 +5,9 @@ import org.maxkizi.userdemo.generated.dto.FullUserDto;
 import org.maxkizi.userdemo.generated.dto.PartUserDto;
 import org.maxkizi.userdemo.services.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,12 +26,11 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public List<PartUserDto> list(@RequestParam(name = "lastName", required = false) String lastName) {
-        if (lastName != null) {
-            return service.list().stream().filter(u -> u.getLastName().equals(lastName)).collect(Collectors.toList());
-        } else {
-            return service.list();
-        }
+    public Page<PartUserDto> list(@RequestParam(name = "firstName", required = false) String firstName,
+                                  @PageableDefault(sort = "id") Pageable pageable) {
+        if (firstName != null && !firstName.isEmpty()) {
+            return service.list(pageable, firstName);
+        } else return service.list(pageable);
     }
 
     @GetMapping("/user/{id}")
