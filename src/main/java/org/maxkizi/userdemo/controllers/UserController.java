@@ -1,6 +1,7 @@
 package org.maxkizi.userdemo.controllers;
 
 
+import org.maxkizi.userdemo.domain.User;
 import org.maxkizi.userdemo.generated.dto.FullUserDto;
 import org.maxkizi.userdemo.generated.dto.PartUserDto;
 import org.maxkizi.userdemo.services.UserServiceImpl;
@@ -32,6 +33,7 @@ public class UserController {
             return service.list(pageable, firstName);
         } else return service.list(pageable);
     }
+
 
     @GetMapping("/user/{id}")
     public FullUserDto getUserById(@PathVariable(name = "id") Long userId) {

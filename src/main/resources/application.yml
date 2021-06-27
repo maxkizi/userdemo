@@ -11,6 +11,7 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQL94Dialect
     hibernate:
       format_sql: true
+      ddl-auto: none
   liquibase:
     change-log: classpath:/db/liquibase-changelog.xml
 

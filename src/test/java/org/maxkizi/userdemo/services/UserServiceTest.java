@@ -20,14 +20,14 @@ import java.util.stream.Collectors;
 public class UserServiceTest {
 
     @Autowired
-    private UserService service;
+    private UserServiceImpl service;
 
 
-//    Заполнение рандомными данныим
+    //    Заполнение рандомными данныим
     @Test
     public void simpleTest() {
 
-        /*for (int i = 0; i <100; i++){
+       /* for (int i = 0; i <100; i++){
             FullUserDto user = simpleUser(i);
             service.create(user);
         }*/
@@ -44,8 +44,8 @@ public class UserServiceTest {
         service.delete(id);
     }
 
-    @Test (expected = UserNotFoundException.class)
-    public void getUserById_ShouldThrows_UserNotFoundException(){
+    @Test(expected = UserNotFoundException.class)
+    public void getUserById_ShouldThrows_UserNotFoundException() {
         service.findById(10000L);
     }
 
@@ -79,10 +79,11 @@ public class UserServiceTest {
         FullUserDto user = new FullUserDto();
         user.setFirstName("IVAN");
         user.setLastName("IVANOV");
-        user.setEMail("ivanov@gmail.com");
+        user.setUserEmail("ivanov@gmail.com");
         user.setUserInfo("Russia, 20 y.o");
         return user;
     }
+
     private FullUserDto simpleUser(int i) {
         FullUserDto user = new FullUserDto();
         user.setFirstName("firstName_" + i);

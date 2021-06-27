@@ -11,7 +11,7 @@ public class StandardObjectMapperConfiguration {
     @Bean(name = "standardModelMapper")
     public ModelMapper defaultObjectMapper(){
         ModelMapper mapper = new ModelMapper();
-        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STANDARD);
+        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
         return mapper;
     }

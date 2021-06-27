@@ -36,7 +36,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/PartUser'
+                  $ref: '#/components/schemas/PartUserDto'
 
               example:
                 - id: 1
@@ -60,14 +60,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/FullUser'
+              $ref: '#/components/schemas/FullUserDto'
       responses:
         '200':
           description: A user object with auto-generated id
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FullUser'
+                $ref: '#/components/schemas/FullUserDto'
 
 
   /user/{id}:
@@ -90,7 +90,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FullUser'
+                $ref: '#/components/schemas/FullUserDto'
 
 
     put:
@@ -101,7 +101,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/FullUser'
+              $ref: '#/components/schemas/FullUserDto'
 
       responses:
         '200':
@@ -109,13 +109,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FullUser'
+                $ref: '#/components/schemas/FullUserDto'
 
     delete:
       description: Delete user by id
       responses:
         '204':
           description: Deleted
+
+
+
+
 
 components:
   schemas:
@@ -150,7 +154,7 @@ components:
           example: 20 y.o, Kirov region, Yurya village
           description: Additional information about user(age, birthplace e.t.c)
 
-        eMail:
+        userEmail:
           type: string
           minLength: 5
           maxLength: 30
@@ -184,13 +188,13 @@ components:
           description: User's last name
 
 
-        eMail:
+        userEmail:
           type: string
           minLength: 5
           maxLength: 30
           example: ivanov@gmail.com
           description: User's eMail address
-      required: [ id, firstName, lastName ]
+      required: [id, firstName, lastName]
 
 
 
