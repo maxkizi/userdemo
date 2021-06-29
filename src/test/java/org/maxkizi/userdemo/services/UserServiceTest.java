@@ -1,33 +1,36 @@
 package org.maxkizi.userdemo.services;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.maxkizi.userdemo.domain.User;
+import org.maxkizi.userdemo.converter.UserConverter;
 import org.maxkizi.userdemo.exceptions.UserNotFoundException;
-import org.maxkizi.userdemo.generated.dto.FullUserDto;
-import org.maxkizi.userdemo.generated.dto.PartUserDto;
+import org.maxkizi.userdemo.generated.dto.UserDto;
+import org.maxkizi.userdemo.model.User;
+import org.maxkizi.userdemo.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class UserServiceTest {
 
+public class UserServiceTest {
     @Autowired
     private UserServiceImpl service;
+    @Autowired
+    private UserConverter converter;
 
 
     //    Заполнение рандомными данныим
     @Test
     public void simpleTest() {
 
-       /* for (int i = 0; i <100; i++){
+     /*   for (int i = 1; i <= 100; i++) {
             FullUserDto user = simpleUser(i);
             service.create(user);
         }*/
@@ -35,13 +38,10 @@ public class UserServiceTest {
 
     @Test
     public void getUserByIdTest() {
-        FullUserDto userDto = service.create(simpleUser());
-        Long id = userDto.getId();
-        FullUserDto foundUser = service.findById(id);
+        Long id = 100L;
+        UserDto user = service.findById(id);
+        Assert.assertEquals(id, user.getId());
 
-        Assert.assertEquals(userDto.getLastName(), foundUser.getLastName());
-
-        service.delete(id);
     }
 
     @Test(expected = UserNotFoundException.class)
@@ -50,33 +50,17 @@ public class UserServiceTest {
     }
 
     @Test
-    public void saveAndDeleteUserTest() {
+    public void saveUserTest() {
+        Long id = service.create(simpleUser()).getId();
+        UserDto foundUser = service.findById(id);
 
-        FullUserDto user = simpleUser();
-        FullUserDto createdUser = service.create(user);
-        FullUserDto foundUser = service.findById(createdUser.getId());
-
-        Assert.assertEquals(user.getUserInfo(), foundUser.getUserInfo());
-
-        service.delete(createdUser.getId());
-    }
-
-    @Test
-    public void updateUserTest() {
-        FullUserDto userDto = service.create(simpleUser());
-        Long id = userDto.getId();
-        userDto.setLastName("UpdatedName");
-        service.update(id, userDto);
-        FullUserDto updatedUser = service.findById(id);
-        Assert.assertEquals(userDto.getLastName(), updatedUser.getLastName());
-
-        service.delete(id);
-
+        Assert.assertEquals(foundUser.getLastName(), foundUser.getLastName());
     }
 
 
-    private FullUserDto simpleUser() {
-        FullUserDto user = new FullUserDto();
+
+    private UserDto simpleUser() {
+        UserDto user = new UserDto();
         user.setFirstName("IVAN");
         user.setLastName("IVANOV");
         user.setUserEmail("ivanov@gmail.com");
@@ -84,8 +68,8 @@ public class UserServiceTest {
         return user;
     }
 
-    private FullUserDto simpleUser(int i) {
-        FullUserDto user = new FullUserDto();
+    private UserDto simpleUser(int i) {
+        UserDto user = new UserDto();
         user.setFirstName("firstName_" + i);
         user.setLastName("lastName_" + i);
         return user;

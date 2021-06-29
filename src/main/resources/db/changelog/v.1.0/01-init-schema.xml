@@ -4,22 +4,24 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
     <changeSet author="maxkizi" id="1">
-        <createTable remarks="Таблица пользователей" tableName="app_user">
-            <column remarks="ID автоинкремент" autoIncrement="true" name="user_id" type="bigserial">
+        <createTable remarks="Таблица пользователей" tableName="users">
+            <column remarks="ID автоинкремент" autoIncrement="true" name="id" type="bigserial">
                 <constraints primaryKey="true"/>
             </column>
 
-            <column remarks="Имя" name="first_name" type="varchar(20)">
+            <column remarks="Дата создания" name="date_created" type="timestamp"/>
+            <column remarks="Дата обновления" name="date_updated" type="timestamp"/>
+            <column remarks="Флаг удвления" name="is_deleted" type="boolean" defaultValueBoolean="false"/>
+            <column remarks="Наименование" name="name" type="text"/>
+            <column remarks="Имя" name="first_name" type="text">
                 <constraints nullable="false"/>
             </column>
-
-            <column remarks="Фамилия" name="last_name" type="varchar(20)">
+            <column remarks="Фамилия" name="last_name" type="text">
                 <constraints nullable="false"/>
             </column>
+            <column remarks="Информация о пользователе" name="user_info" type="text"/>
 
-            <column remarks="Информация о пользователе" name="user_info" type="varchar(200)"/>
-
-            <column remarks="Электронная почта пользователя" name="user_email" type="varchar(30)"/>
+            <column remarks="Электронная почта пользователя" name="user_email" type="text"/>
         </createTable>
     </changeSet>
 

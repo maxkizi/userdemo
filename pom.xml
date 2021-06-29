@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.0</version>
+        <version>2.5.2</version>
     </parent>
 
     <groupId>org.maxkizi</groupId>
@@ -24,7 +24,7 @@
         <hibernate-types.version>2.10.3</hibernate-types.version>
         <spring.boot.version>2.4.2</spring.boot.version>
         <junit.version>4.13.2</junit.version>
-        <swagger-parser.version>2.0.24</swagger-parser.version>
+        <swagger-parser.version>2.0.26</swagger-parser.version>
 
         <liquibase.plugin.version>4.3.5</liquibase.plugin.version>
         <swagger.codegen.plugin.version>3.0.24</swagger.codegen.plugin.version>
@@ -63,7 +63,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
-            <version>${spring.boot.version}</version>
         </dependency>
 
         <dependency>
@@ -97,6 +96,7 @@
             <artifactId>swagger-parser</artifactId>
             <version>${swagger-parser.version}</version>
         </dependency>
+
 
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -153,7 +153,7 @@
                         <configuration>
                             <language>spring</language>
                             <output>${project.build.directory}/generated-sources/</output>
-                            <inputSpec>${project.basedir}/src/main/resources/user-api.yaml</inputSpec>
+                            <inputSpec>${project.basedir}/src/main/resources/users/user-api.yml</inputSpec>
                             <modelPackage>org.maxkizi.userdemo.generated.dto</modelPackage>
                             <generateApis>false</generateApis>
                             <generateSupportingFiles>false</generateSupportingFiles>
@@ -162,7 +162,7 @@
                 </executions>
             </plugin>
 
-            <!--<plugin>
+            <plugin>
                 <groupId>com.mysema.maven</groupId>
                 <artifactId>apt-maven-plugin</artifactId>
                 <version>${apt-plugin.version}</version>
@@ -185,7 +185,7 @@
                         <classifier>jpa</classifier>
                     </dependency>
                 </dependencies>
-            </plugin>-->
+            </plugin>
         </plugins>
     </build>
 </project>

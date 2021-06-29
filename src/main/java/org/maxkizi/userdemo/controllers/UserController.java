@@ -1,54 +1,42 @@
 package org.maxkizi.userdemo.controllers;
 
-
-import org.maxkizi.userdemo.domain.User;
-import org.maxkizi.userdemo.generated.dto.FullUserDto;
-import org.maxkizi.userdemo.generated.dto.PartUserDto;
-import org.maxkizi.userdemo.services.UserServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.datical.liquibase.ext.storedlogic.databasepackage.PackageBodySnapshotGenerator;
+import lombok.AllArgsConstructor;
+import org.maxkizi.userdemo.generated.dto.UserDto;
+import org.maxkizi.userdemo.generated.dto.UserShortDto;
+import org.maxkizi.userdemo.services.IUserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @RestController
-@RequestMapping("/user-api")
+@RequestMapping("/api/v1")
+@AllArgsConstructor
 public class UserController {
-
-    private final UserServiceImpl service;
-
-    @Autowired
-    public UserController(UserServiceImpl service) {
-        this.service = service;
-    }
+    private final IUserService service;
 
     @GetMapping("/users")
-    public Page<PartUserDto> list(@RequestParam(name = "firstName", required = false) String firstName,
-                                  @PageableDefault(sort = "id") Pageable pageable) {
-        if (firstName != null && !firstName.isEmpty()) {
-            return service.list(pageable, firstName);
-        } else return service.list(pageable);
+    public Page<UserShortDto> list(Pageable pageable,
+                                   @RequestParam(name = "search", required = false) String search) {
+        return service.list(pageable, search);
     }
 
-
-    @GetMapping("/user/{id}")
-    public FullUserDto getUserById(@PathVariable(name = "id") Long userId) {
-        return service.findById(userId);
+    @GetMapping("user/{id}")
+    public UserDto getById(@PathVariable(name = "id") Long id) {
+        return service.findById(id);
     }
 
     @PostMapping("/users")
-    public FullUserDto create(@RequestBody FullUserDto user) {
-        return service.create(user);
+    public UserDto create(@RequestBody UserDto userDto) {
+        return service.create(userDto);
     }
 
     @PutMapping("/user/{id}")
-    public FullUserDto update(@PathVariable(name = "id") Long id,
-                              @RequestBody FullUserDto user) {
-        return service.update(id, user);
+    public UserDto update(@PathVariable(name = "id") Long id,
+                          @RequestBody UserDto userDto) {
+        return service.update(id, userDto);
     }
 
     @DeleteMapping("user/{id}")
@@ -56,4 +44,5 @@ public class UserController {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
+
 }
