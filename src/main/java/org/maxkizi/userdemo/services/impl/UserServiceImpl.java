@@ -5,9 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.maxkizi.userdemo.converter.UserConverter;
+import org.maxkizi.userdemo.exceptions.AddVacationException;
 import org.maxkizi.userdemo.exceptions.UserNotFoundException;
 import org.maxkizi.userdemo.generated.dto.UserDto;
 import org.maxkizi.userdemo.generated.dto.UserShortDto;
+import org.maxkizi.userdemo.generated.dto.UserVacationDto;
 import org.maxkizi.userdemo.model.QUser;
 import org.maxkizi.userdemo.model.User;
 import org.maxkizi.userdemo.repositories.UserRepository;
@@ -40,6 +42,8 @@ public class UserServiceImpl extends AbstractBaseService<User, Long, QUser, User
 
     @Override
     public UserDto findById(Long id) {
+        int size = get(id).orElse(null).getVacations().size();
+        log.info("SIZE: " + size);
         return converter.toDto(get(id).orElseThrow(UserNotFoundException::new));
     }
 
@@ -62,5 +66,29 @@ public class UserServiceImpl extends AbstractBaseService<User, Long, QUser, User
         User user = get(id).orElseThrow(UserNotFoundException::new);
         user.setDeleted(true);
         save(user);
+    }
+
+    @Override
+    public UserDto addVacation(UserVacationDto vacationDto, Long userId) {
+        try {
+            UserDto userDto = findById(userId);
+            userDto.getVacations().add(vacationDto);
+           return update(userId, userDto);
+        } catch (UserNotFoundException e) {
+            log.error(e.getMessage());
+            throw new AddVacationException();
+        }
+    }
+
+    @Override
+    public UserDto deleteVacation(Long vacationId, Long userId) {
+        try {
+            UserDto userDto = findById(userId);
+            userDto.getVacations().remove(vacationId);
+            return update(userId, userDto);
+        } catch (UserNotFoundException e) {
+            log.error(e.getMessage());
+            throw new AddVacationException();
+        }
     }
 }

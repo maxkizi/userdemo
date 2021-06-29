@@ -1,14 +1,13 @@
 package org.maxkizi.userdemo.controllers;
 
-import com.datical.liquibase.ext.storedlogic.databasepackage.PackageBodySnapshotGenerator;
 import lombok.AllArgsConstructor;
 import org.maxkizi.userdemo.generated.dto.UserDto;
 import org.maxkizi.userdemo.generated.dto.UserShortDto;
+import org.maxkizi.userdemo.generated.dto.UserVacationDto;
 import org.maxkizi.userdemo.services.IUserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -45,4 +44,15 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+    @PutMapping("user/{id}/add_vacation")
+    public UserDto addVacation(@RequestBody UserVacationDto vacation,
+                               @PathVariable(name = "id") Long id) {
+        return service.addVacation(vacation, id);
+    }
+
+    @PutMapping("user/{userId}/delete_vacation/{vacationId}")
+    public UserDto deleteVacation(@PathVariable(name = "userId") Long userId,
+                                  @PathVariable(name = "vacationId") Long vacationId) {
+        return service.deleteVacation(vacationId, userId);
+    }
 }

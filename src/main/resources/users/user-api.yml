@@ -36,7 +36,7 @@ paths:
           content:
             application/json:
               schema:
-                  $ref: '#/components/schemas/UserListResponse'
+                $ref: '#/components/schemas/UserListResponse'
 
               example:
                 - id: 1
@@ -188,7 +188,13 @@ components:
           maxLength: 30
           example: ivanov@gmail.com
           description: User's eMail address
+
+        vacations:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserVacationDto'
       required: [ id, firstName, lastName ]
+
 
     UserShortDto:
       type: object
@@ -223,6 +229,21 @@ components:
           example: ivanov@gmail.com
           description: User's eMail address
       required: [ id, firstName, lastName ]
+
+    UserVacationDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        dateFrom:
+          type: string
+          format: date
+          description: Starting date
+        dateTo:
+          type: string
+          format: date
+          description: Finishing date
 
 
 

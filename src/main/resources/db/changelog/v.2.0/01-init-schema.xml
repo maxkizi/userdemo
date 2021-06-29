@@ -1,0 +1,42 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="maxkizi" id="1">
+        <!--        <dropTable tableName="users"/>-->
+        <createTable remarks="Таблица пользователей" tableName="users">
+            <column remarks="ID автоинкремент" autoIncrement="true" name="id" type="bigserial">
+                <constraints primaryKey="true"/>
+            </column>
+
+            <column remarks="Наименование" name="name" type="text"/>
+            <column remarks="Дата создания" name="date_created" type="timestamp"/>
+            <column remarks="Дата обновления" name="date_updated" type="timestamp"/>
+            <column remarks="Флаг удвления" name="is_deleted" type="boolean" defaultValueBoolean="false"/>
+            <column remarks="Имя" name="first_name" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column remarks="Фамилия" name="last_name" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column remarks="Информация о пользователе" name="user_info" type="text"/>
+
+            <column remarks="Электронная почта пользователя" name="user_email" type="text"/>
+        </createTable>
+
+        <createTable remarks="Таблица отпусков пользователя" tableName="user_vacations">
+            <column remarks="ID автоинкремент" autoIncrement="true" name="id" type="bigserial">
+                <constraints primaryKey="true"></constraints>
+            </column>
+            <column remarks="Дата создания" name="date_created" type="timestamp"/>
+            <column remarks="Дата обновления" name="date_updated" type="timestamp"/>
+            <column remarks="Дата начала отпуска" name="date_from" type="date"/>
+            <column remarks="Дата окончания отпуска" name="date_to" type="date"/>
+            <column remarks="ID пользователя" name="user_id" type="bigint">
+                <constraints foreignKeyName="fk_user_vacations_user_id" references="users(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

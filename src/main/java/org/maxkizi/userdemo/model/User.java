@@ -7,6 +7,7 @@ import lombok.experimental.SuperBuilder;
 import org.maxkizi.userdemo.model.base.BaseDeleteNamedEntity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -20,5 +21,9 @@ public class User extends BaseDeleteNamedEntity {
     private String lastName;
     private String userInfo;
     private String userEmail;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
+    @OrderBy(value = "id")
+    private List<UserVacation> vacations;
 
 }

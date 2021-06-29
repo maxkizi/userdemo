@@ -8,12 +8,14 @@ import org.junit.runner.RunWith;
 import org.maxkizi.userdemo.converter.UserConverter;
 import org.maxkizi.userdemo.exceptions.UserNotFoundException;
 import org.maxkizi.userdemo.generated.dto.UserDto;
+import org.maxkizi.userdemo.generated.dto.UserVacationDto;
 import org.maxkizi.userdemo.model.User;
 import org.maxkizi.userdemo.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
 import java.util.Optional;
 
 @RunWith(SpringRunner.class)
@@ -55,6 +57,15 @@ public class UserServiceTest {
         UserDto foundUser = service.findById(id);
 
         Assert.assertEquals(foundUser.getLastName(), foundUser.getLastName());
+    }
+
+    @Test
+    public void getVacationsTest(){
+        UserDto userDto= service.findById(1L);
+        System.out.println(userDto.getVacations());
+
+
+
     }
 
 

@@ -25,6 +25,7 @@
         <spring.boot.version>2.4.2</spring.boot.version>
         <junit.version>4.13.2</junit.version>
         <swagger-parser.version>2.0.26</swagger-parser.version>
+        <threetenbp.version>1.5.1</threetenbp.version>
 
         <liquibase.plugin.version>4.3.5</liquibase.plugin.version>
         <swagger.codegen.plugin.version>3.0.24</swagger.codegen.plugin.version>
@@ -122,7 +123,16 @@
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.threeten</groupId>
+            <artifactId>threetenbp</artifactId>
+            <version>${threetenbp.version}</version>
+        </dependency>
     </dependencies>
+
+
+
 
 
     <build>
