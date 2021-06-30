@@ -236,6 +236,8 @@ components:
         id:
           type: integer
           format: int64
+        someTextField:
+          type: string
         dateFrom:
           type: string
           format: date

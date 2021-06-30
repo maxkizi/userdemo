@@ -21,6 +21,8 @@ public class UserVacation extends BaseEntity {
     private LocalDate dateFrom;
     @Column(name = "date_to")
     private LocalDate dateTo;
+    @Column
+    private String someTextField;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

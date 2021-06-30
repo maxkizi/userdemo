@@ -42,8 +42,6 @@ public class UserServiceImpl extends AbstractBaseService<User, Long, QUser, User
 
     @Override
     public UserDto findById(Long id) {
-        int size = get(id).orElse(null).getVacations().size();
-        log.info("SIZE: " + size);
         return converter.toDto(get(id).orElseThrow(UserNotFoundException::new));
     }
 
