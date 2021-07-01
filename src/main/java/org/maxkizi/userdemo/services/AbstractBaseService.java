@@ -59,6 +59,7 @@ public abstract class AbstractBaseService<T extends IEntity<I>, I extends Serial
     }
 
     @Override
+    @Transactional(propagation = Propagation.SUPPORTS, rollbackFor = Exception.class)
     public Optional<T> get(Predicate predicate) {
         return getRepository().findOne(predicate);
     }

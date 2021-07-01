@@ -1,5 +1,6 @@
 package org.maxkizi.userdemo.repositories;
 
+import com.querydsl.core.types.Predicate;
 import org.maxkizi.userdemo.model.QUser;
 import org.maxkizi.userdemo.model.User;
 import org.springframework.data.jpa.repository.EntityGraph;
@@ -14,4 +15,7 @@ public interface UserRepository extends BaseRepository<User, Long, QUser> {
     @EntityGraph(attributePaths = {"vacations"})
     Optional<User> findById(Long id);
 
+    @Override
+    @EntityGraph(attributePaths = {"vacations"})
+    Optional<User> findOne(Predicate predicate);
 }
