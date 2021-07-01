@@ -1,6 +1,7 @@
 package org.maxkizi.userdemo.controllers;
 
 import lombok.AllArgsConstructor;
+import org.maxkizi.userdemo.converter.UserConverter;
 import org.maxkizi.userdemo.generated.dto.UserDto;
 import org.maxkizi.userdemo.generated.dto.UserShortDto;
 import org.maxkizi.userdemo.generated.dto.UserVacationDto;
@@ -15,44 +16,34 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class UserController {
     private final IUserService service;
+    private final UserConverter converter;
 
     @GetMapping("/users")
     public Page<UserShortDto> list(Pageable pageable,
                                    @RequestParam(name = "search", required = false) String search) {
-        return service.list(pageable, search);
+        return service.list(pageable, search).map(converter::toShortDto);
     }
 
     @GetMapping("user/{id}")
     public UserDto getById(@PathVariable(name = "id") Long id) {
-        return service.findById(id);
+        return converter.toDto(service.findById(id));
     }
 
     @PostMapping("/users")
     public UserDto create(@RequestBody UserDto userDto) {
-        return service.create(userDto);
+        return converter.toDto(service.create(converter.from(userDto)));
     }
 
     @PutMapping("/user/{id}")
     public UserDto update(@PathVariable(name = "id") Long id,
                           @RequestBody UserDto userDto) {
-        return service.update(id, userDto);
+        userDto.setId(id);
+      return converter.toDto(service.update(converter.from(userDto)));
     }
 
     @DeleteMapping("user/{id}")
     public ResponseEntity<Void> delete(@PathVariable(name = "id") Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
-    }
-
-    @PutMapping("user/{id}/add_vacation")
-    public UserDto addVacation(@RequestBody UserVacationDto vacation,
-                               @PathVariable(name = "id") Long id) {
-        return service.addVacation(vacation, id);
-    }
-
-    @PutMapping("user/{userId}/delete_vacation/{vacationId}")
-    public UserDto deleteVacation(@PathVariable(name = "userId") Long userId,
-                                  @PathVariable(name = "vacationId") Long vacationId) {
-        return service.deleteVacation(vacationId, userId);
     }
 }

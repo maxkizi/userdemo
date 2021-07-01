@@ -123,16 +123,7 @@
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>org.threeten</groupId>
-            <artifactId>threetenbp</artifactId>
-            <version>${threetenbp.version}</version>
-        </dependency>
     </dependencies>
-
-
-
 
 
     <build>
@@ -167,6 +158,10 @@
                             <modelPackage>org.maxkizi.userdemo.generated.dto</modelPackage>
                             <generateApis>false</generateApis>
                             <generateSupportingFiles>false</generateSupportingFiles>
+                            <configOptions>
+                                <generateAdditionalProperties>true</generateAdditionalProperties>
+                                <dateLibrary>java8-localdatetime</dateLibrary>
+                            </configOptions>
                         </configuration>
                     </execution>
                 </executions>

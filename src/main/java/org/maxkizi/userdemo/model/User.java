@@ -22,7 +22,7 @@ public class User extends BaseDeleteNamedEntity {
     private String userInfo;
     private String userEmail;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     @OrderBy(value = "id")
     private List<UserVacation> vacations;
 

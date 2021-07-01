@@ -3,8 +3,8 @@
                    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
+
     <changeSet author="maxkizi" id="1">
-        <!--        <dropTable tableName="users"/>-->
         <createTable remarks="Таблица пользователей" tableName="users">
             <column remarks="ID автоинкремент" autoIncrement="true" name="id" type="bigserial">
                 <constraints primaryKey="true"/>
@@ -37,6 +37,65 @@
                 <constraints foreignKeyName="fk_user_vacations_user_id" references="users(id)"/>
             </column>
         </createTable>
+
+        <insert tableName="users">
+            <column name="first_name" value="Maxim"/>
+            <column name="last_name" value="Kizilov"/>
+            <column name="user_info" value="Kirov, 27 y.o"/>
+            <column name="user_email" value="maxkizi@yandex.ru"/>
+        </insert>
+
+        <insert tableName="users">
+            <column name="first_name" value="Alex"/>
+            <column name="last_name" value="Alexandrov"/>
+            <column name="user_info" value="Saint-Petersburg, 10 y.o"/>
+            <column name="user_email" value="maxkizi@yandex.ru"/>
+        </insert>
+
+        <insert tableName="users">
+            <column name="first_name" value="Ivan"/>
+            <column name="last_name" value="Ivanov"/>
+            <column name="user_info" value="Moscow, 23 y.o"/>
+            <column name="user_email" value="ivanov@gmail.com"/>
+        </insert>
+
+
+        <insert tableName="user_vacations">
+            <column name="date_from" value="2021-01-01"/>
+            <column name="date_to" value="2021-02-01"/>
+            <column name="user_id" value="1"/>
+        </insert>
+
+        <insert tableName="user_vacations">
+            <column name="date_from" value="2021-03-01"/>
+            <column name="date_to" value="2021-04-01"/>
+            <column name="user_id" value="1"/>
+        </insert>
+
+        <insert tableName="user_vacations">
+            <column name="date_from" value="2019-01-01"/>
+            <column name="date_to" value="2021-02-01"/>
+            <column name="user_id" value="2"/>
+        </insert>
+
+        <insert tableName="user_vacations">
+            <column name="date_from" value="2019-03-01"/>
+            <column name="date_to" value="2021-04-01"/>
+            <column name="user_id" value="2"/>
+        </insert>
+
+        <insert tableName="user_vacations">
+            <column name="date_from" value="2017-01-01"/>
+            <column name="date_to" value="2021-02-01"/>
+            <column name="user_id" value="3"/>
+        </insert>
+
+        <insert tableName="user_vacations">
+            <column name="date_from" value="2017-03-01"/>
+            <column name="date_to" value="2021-04-01"/>
+            <column name="user_id" value="3"/>
+        </insert>
+
     </changeSet>
 
 </databaseChangeLog>

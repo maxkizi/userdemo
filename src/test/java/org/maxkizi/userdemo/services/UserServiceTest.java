@@ -10,6 +10,7 @@ import org.maxkizi.userdemo.exceptions.UserNotFoundException;
 import org.maxkizi.userdemo.generated.dto.UserDto;
 import org.maxkizi.userdemo.generated.dto.UserVacationDto;
 import org.maxkizi.userdemo.model.User;
+import org.maxkizi.userdemo.model.UserVacation;
 import org.maxkizi.userdemo.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -37,7 +38,7 @@ public class UserServiceTest {
             service.create(user);
         }*/
     }
-
+/*
     @Test
     public void getUserByIdTest() {
         Long id = 100L;
@@ -61,11 +62,7 @@ public class UserServiceTest {
 
     @Test
     public void getVacationsTest(){
-        UserDto userDto= service.findById(1L);
-        System.out.println(userDto.getVacations());
-
-
-
+        UserVacation uv = new UserVacation();
     }
 
 
@@ -84,5 +81,5 @@ public class UserServiceTest {
         user.setFirstName("firstName_" + i);
         user.setLastName("lastName_" + i);
         return user;
-    }
+    }*/
 }
