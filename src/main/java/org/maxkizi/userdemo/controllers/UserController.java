@@ -37,8 +37,8 @@ public class UserController {
     @PutMapping("/user/{id}")
     public UserDto update(@PathVariable(name = "id") Long id,
                           @RequestBody UserDto userDto) {
-        userDto.setId(id);
-      return converter.toDto(service.update(converter.from(userDto)));
+
+        return converter.toDto(service.update(id, converter.from(userDto)));
     }
 
     @DeleteMapping("user/{id}")

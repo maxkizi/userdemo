@@ -49,7 +49,7 @@
             <column name="first_name" value="Alex"/>
             <column name="last_name" value="Alexandrov"/>
             <column name="user_info" value="Saint-Petersburg, 10 y.o"/>
-            <column name="user_email" value="maxkizi@yandex.ru"/>
+            <column name="user_email" value="alexx@mail.ru"/>
         </insert>
 
         <insert tableName="users">

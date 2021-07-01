@@ -24,7 +24,10 @@ public class UserConverter {
     }
 
     public User from(UserDto userDto) {
-        return modelMapper.map(userDto, User.class);
+        User user = modelMapper.map(userDto, User.class);
+        user.getVacations().forEach(v -> v.setUser(user));
+
+        return user;
     }
 
 }
