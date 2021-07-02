@@ -1,0 +1,237 @@
+{
+	"info": {
+		"_postman_id": "8fbb63f8-2863-43a3-b2aa-518f624cf31c",
+		"name": "UserDemoCreateUpdateDelete",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n    \"firstName\": \"Ivan\",\r\n    \"lastName\": \"Ivanov\",\r\n    \"userInfo\": \"Russia 20 y.o\",\r\n    \"userEmail\": \"ivanov@gmail.com\",\r\n    \"vacations\": [\r\n        \r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Creta user2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Alexander\",\r\n    \"lastName\": \"Alexandrov\",\r\n    \"userInfo\": \"Belarus 25 y.o\",\r\n    \"userEmail\": \"ivanov@gmail.com\",\r\n    \"vacations\": [\r\n        \r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddVacationForUser1",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Ivan\",\r\n    \"lastName\": \"Ivanov\",\r\n    \"userInfo\": \"Russia 20 y.o\",\r\n    \"userEmail\": \"ivanov@gmail.com\",\r\n    \"vacations\": [\r\n        {\r\n            \"dateFrom\": \"2021-01-01\",\r\n            \"dateTo\": \"2021-02-01\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/user/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddVacationForUser2",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Alexander\",\r\n    \"lastName\": \"Alexandrov\",\r\n    \"userInfo\": \"Belarus 25 y.o\",\r\n    \"userEmail\": \"ivanov@gmail.com\",\r\n    \"vacations\": [\r\n        {\r\n            \"dateFrom\": \"2014-08-21\",\r\n            \"dateTo\": \"2014-09-21\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/user/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddOneMoreVactionForUser1",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"firstName\": \"Ivan\",\r\n    \"lastName\": \"Ivanov\",\r\n    \"userInfo\": \"Russia 20 y.o\",\r\n    \"userEmail\": \"ivanov@gmail.com\",\r\n    \"vacations\": [\r\n        {\r\n            \"id\": 1,\r\n            \"dateFrom\": \"2021-01-01\",\r\n            \"dateTo\": \"2021-02-01\"\r\n        },\r\n        {\r\n            \"dateFrom\": \"2022-01-01\",\r\n            \"dateTo\": \"2022-02-01\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/user/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeelteVacationFromUser1",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"firstName\": \"Ivan\",\r\n    \"lastName\": \"Ivanov\",\r\n    \"userInfo\": \"Russia 20 y.o\",\r\n    \"userEmail\": \"ivanov@gmail.com\",\r\n    \"vacations\": [\r\n        {\r\n            \"id\": 1,\r\n            \"dateFrom\": \"2021-01-01\",\r\n            \"dateTo\": \"2021-02-01\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/user/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeelteUser2",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/user/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetByID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/user/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

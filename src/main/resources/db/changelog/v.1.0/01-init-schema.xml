@@ -8,11 +8,9 @@
             <column remarks="ID автоинкремент" autoIncrement="true" name="id" type="bigserial">
                 <constraints primaryKey="true"/>
             </column>
-
             <column remarks="Дата создания" name="date_created" type="timestamp"/>
             <column remarks="Дата обновления" name="date_updated" type="timestamp"/>
             <column remarks="Флаг удвления" name="is_deleted" type="boolean" defaultValueBoolean="false"/>
-            <column remarks="Наименование" name="name" type="text"/>
             <column remarks="Имя" name="first_name" type="text">
                 <constraints nullable="false"/>
             </column>
@@ -20,8 +18,21 @@
                 <constraints nullable="false"/>
             </column>
             <column remarks="Информация о пользователе" name="user_info" type="text"/>
-
             <column remarks="Электронная почта пользователя" name="user_email" type="text"/>
+        </createTable>
+
+
+        <createTable remarks="Таблица отпусков пользователя" tableName="user_vacations">
+            <column remarks="ID автоинкремент" autoIncrement="true" name="id" type="bigserial">
+                <constraints primaryKey="true"></constraints>
+            </column>
+            <column remarks="Дата создания" name="date_created" type="timestamp"/>
+            <column remarks="Дата обновления" name="date_updated" type="timestamp"/>
+            <column remarks="Дата начала отпуска" name="date_from" type="date"/>
+            <column remarks="Дата окончания отпуска" name="date_to" type="date"/>
+            <column remarks="ID пользователя" name="user_id" type="bigint">
+                <constraints foreignKeyName="fk_user_vacations_user_id" references="users(id)"/>
+            </column>
         </createTable>
     </changeSet>
 

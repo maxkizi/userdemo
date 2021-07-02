@@ -10,7 +10,6 @@
                 <constraints primaryKey="true"/>
             </column>
 
-            <column remarks="Наименование" name="name" type="text"/>
             <column remarks="Дата создания" name="date_created" type="timestamp"/>
             <column remarks="Дата обновления" name="date_updated" type="timestamp"/>
             <column remarks="Флаг удвления" name="is_deleted" type="boolean" defaultValueBoolean="false"/>
@@ -49,7 +48,7 @@
             <column name="first_name" value="Alex"/>
             <column name="last_name" value="Alexandrov"/>
             <column name="user_info" value="Saint-Petersburg, 10 y.o"/>
-            <column name="user_email" value="alexx@mail.ru"/>
+            <column name="user_email" value="alex@yandex.ru"/>
         </insert>
 
         <insert tableName="users">

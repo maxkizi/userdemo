@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,42 +35,15 @@ public class UserServiceTest {
     @Test
     public void simpleTest() {
 
-     /*   for (int i = 1; i <= 100; i++) {
-            FullUserDto user = simpleUser(i);
+        for (int i = 1; i <= 50; i++) {
+            User user = simpleUser(i);
             service.create(user);
-        }*/
-    }
-/*
-    @Test
-    public void getUserByIdTest() {
-        Long id = 100L;
-        UserDto user = service.findById(id);
-        Assert.assertEquals(id, user.getId());
-
-    }
-
-    @Test(expected = UserNotFoundException.class)
-    public void getUserById_ShouldThrows_UserNotFoundException() {
-        service.findById(10000L);
-    }
-
-    @Test
-    public void saveUserTest() {
-        Long id = service.create(simpleUser()).getId();
-        UserDto foundUser = service.findById(id);
-
-        Assert.assertEquals(foundUser.getLastName(), foundUser.getLastName());
-    }
-
-    @Test
-    public void getVacationsTest(){
-        UserVacation uv = new UserVacation();
+        }
     }
 
 
-
-    private UserDto simpleUser() {
-        UserDto user = new UserDto();
+    private User simpleUser() {
+        User user = new User();
         user.setFirstName("IVAN");
         user.setLastName("IVANOV");
         user.setUserEmail("ivanov@gmail.com");
@@ -76,10 +51,11 @@ public class UserServiceTest {
         return user;
     }
 
-    private UserDto simpleUser(int i) {
-        UserDto user = new UserDto();
+    private User simpleUser(int i) {
+        User user = new User();
         user.setFirstName("firstName_" + i);
         user.setLastName("lastName_" + i);
+
         return user;
-    }*/
+    }
 }

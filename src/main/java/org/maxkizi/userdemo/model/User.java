@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.maxkizi.userdemo.model.base.BaseDeleteEntity;
 import org.maxkizi.userdemo.model.base.BaseDeleteNamedEntity;
 
 import javax.persistence.*;
@@ -15,7 +16,7 @@ import java.util.List;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User extends BaseDeleteNamedEntity {
+public class User extends BaseDeleteEntity {
 
     private String firstName;
     private String lastName;
