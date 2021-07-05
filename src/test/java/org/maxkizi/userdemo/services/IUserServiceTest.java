@@ -27,7 +27,7 @@ public class IUserServiceTest {
 
     @Test
     public void createAndFindUserByExistingId_Should_Ok() {
-        User createdUser = service.create(simpleUser());
+        User createdUser = service.create(simpleUser(1));
         User foundUser = service.findById(createdUser.getId());
         Assert.assertEquals(createdUser.getId(), foundUser.getId());
     }
@@ -39,21 +39,21 @@ public class IUserServiceTest {
 
     @Test
     public void createAndDeleteUser_Should_Ok() {
-        User createdUser = service.create(simpleUser());
+        User createdUser = service.create(simpleUser(1));
         service.delete(createdUser.getId());
     }
 
-//    удаление удаленного пользователя
+    //    удаление удаленного пользователя
     @Test(expected = UserNotFoundException.class)
     public void deleteByUnExistingId_Should_ThrowEx() {
-        User createdUser = service.create(simpleUser());
+        User createdUser = service.create(simpleUser(1));
         service.delete(createdUser.getId());
         service.delete(createdUser.getId());
     }
 
     @Test
     public void createAndUpdateUser_Should_Ok() {
-        User createdUser = service.create(simpleUser());
+        User createdUser = service.create(simpleUser(1));
         createdUser.setUserEmail("simpleEmail@gmail.com");
         User updatedUser = service.update(createdUser.getId(), createdUser);
         Assert.assertEquals(createdUser.getId(), updatedUser.getId());
@@ -62,37 +62,42 @@ public class IUserServiceTest {
 
     @Test(expected = UserNotFoundException.class)
     public void updateUnExistingUser_Should_ThrowEx() {
-        service.update(1000L, simpleUser());
-    }
-
-    @Test
-    public void getPageOfUsersAndSorting_ShouldOk() {
-        for (int i = 1; i <= 50; i++) {
-            service.create(simpleUser(i));
-        }
-        Page<User> list = service.list(PageRequest.of(0, 10), null);
-        Assert.assertEquals(10, list.getSize());
-
-        Page<User> list1 = service.list(PageRequest.of(0, 50), "firstName_25");
-        boolean actual = list1.stream().allMatch(u -> u.getFirstName().matches("firstName_25"));
-        Assert.assertEquals(true, actual);
+        service.update(1000L, simpleUser(1));
     }
 
 
     @Test
     public void createUserWithVacations_Should_Ok() {
-        User user = service.create(simpleUser());
+        User user = service.create(userWithVacations());
         User foundUser = service.findById(user.getId());
-        Assert.assertEquals(simpleUser().getVacations().size(), foundUser.getVacations().size());
+        Assert.assertEquals(userWithVacations().getVacations().size(), foundUser.getVacations().size());
     }
 
     @Test
-    public void updateUserWithVacations_Should_Ok(){
+    public void updateUserWithVacations_Should_Ok() {
+        User createdUser = service.create(userWithVacations());
+        User userToUpdate = createdUser;
+        userToUpdate.getVacations().remove(1);
+        service.update(userToUpdate.getId(), userToUpdate);
+        User updatedUser = service.findById(userToUpdate.getId());
+        Assert.assertEquals(updatedUser.getVacations().size(), userToUpdate.getVacations().size());
+    }
 
+    @Test
+    public void getPageOfUsersAndSorting_ShouldOk() {
+        for (int i = 1; i <= 20; i++) {
+            service.create(simpleUser(i));
+        }
+        Page<User> list = service.list(PageRequest.of(0, 10), null);
+        Assert.assertEquals(10, list.getSize());
+
+        Page<User> list1 = service.list(PageRequest.of(0, 20), "firstName_25");
+        boolean actual = list1.stream().allMatch(u -> u.getFirstName().matches("firstName_25"));
+        Assert.assertEquals(true, actual);
     }
 
 
-    private User simpleUser() {
+    private User userWithVacations() {
         User user = new User();
         user.setFirstName("IVAN");
         user.setLastName("IVANOV");
@@ -114,7 +119,7 @@ public class IUserServiceTest {
         user.setLastName("lastName_" + i);
         user.setUserEmail("user@gmail.com");
         user.setUserInfo("Some Country, 20 y.o");
-//        user.setVacations(new ArrayList<>());
+        user.setVacations(new ArrayList<>());
         return user;
     }
 }
