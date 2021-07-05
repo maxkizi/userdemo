@@ -5,6 +5,7 @@ import org.maxkizi.userdemo.converter.UserConverter;
 import org.maxkizi.userdemo.generated.dto.UserDto;
 import org.maxkizi.userdemo.generated.dto.UserShortDto;
 import org.maxkizi.userdemo.generated.dto.UserVacationDto;
+import org.maxkizi.userdemo.model.User;
 import org.maxkizi.userdemo.services.IUserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,12 +27,16 @@ public class UserController {
 
     @GetMapping("user/{id}")
     public UserDto getById(@PathVariable(name = "id") Long id) {
+
         return converter.toDto(service.findById(id));
     }
-
+    //Делал дебаг, поэтому расписал подробно
     @PostMapping("/users")
     public UserDto create(@RequestBody UserDto userDto) {
-        return converter.toDto(service.create(converter.from(userDto)));
+        User userEntity = converter.from(userDto);
+        User createdUser = service.create(userEntity);
+        UserDto resultDto = converter.toDto(createdUser);
+        return resultDto;
     }
 
     @PutMapping("/user/{id}")

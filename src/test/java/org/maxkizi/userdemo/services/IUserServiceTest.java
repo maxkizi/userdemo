@@ -6,11 +6,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.maxkizi.userdemo.exceptions.UserNotFoundException;
 import org.maxkizi.userdemo.model.User;
+import org.maxkizi.userdemo.model.UserVacation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -18,6 +23,7 @@ public class IUserServiceTest {
 
     @Autowired
     IUserService service;
+
 
     @Test
     public void createAndFindUserByExistingId_Should_Ok() {
@@ -28,7 +34,7 @@ public class IUserServiceTest {
 
     @Test(expected = UserNotFoundException.class)
     public void findUserByUnExistingId_Should_ThrowEx() {
-        service.findById(43L);
+        service.findById(1000L);
     }
 
     @Test
@@ -53,7 +59,28 @@ public class IUserServiceTest {
 
     @Test(expected = UserNotFoundException.class)
     public void updateUnExistingUser_Should_ThrowEx() {
-        service.update(45L, simpleUser());
+        service.update(1000L, simpleUser());
+    }
+
+    @Test
+    public void getPageOfUsersAndSorting_ShouldOk() {
+        for (int i = 1; i <= 50; i++) {
+            service.create(simpleUser(i));
+        }
+        Page<User> list = service.list(PageRequest.of(0, 10), null);
+        Assert.assertEquals(10, list.getSize());
+
+        Page<User> list1 = service.list(PageRequest.of(0, 50), "firstName_25");
+        boolean actual = list1.stream().allMatch(u -> u.getFirstName().matches("firstName_25"));
+        Assert.assertEquals(true, actual);
+    }
+
+
+    @Test
+    public void createUserWithVacations_Should_Ok() {
+        User user = service.create(simpleUser());
+        User foundUser = service.findById(user.getId());
+        Assert.assertEquals(simpleUser().getVacations().size(), foundUser.getVacations().size());
     }
 
 
@@ -63,7 +90,23 @@ public class IUserServiceTest {
         user.setLastName("IVANOV");
         user.setUserEmail("ivanov@gmail.com");
         user.setUserInfo("Russia, 20 y.o");
-        user.setVacations(new ArrayList<>());
+
+        List<UserVacation> vacations = new ArrayList<>();
+        vacations.add(new UserVacation(LocalDate.now(), LocalDate.now(), user));
+        vacations.add(new UserVacation(LocalDate.now(), LocalDate.now(), user));
+
+        user.setVacations(vacations);
+        return user;
+    }
+
+
+    private User simpleUser(int i) {
+        User user = new User();
+        user.setFirstName("firstName_" + i);
+        user.setLastName("lastName_" + i);
+        user.setUserEmail("user@gmail.com");
+        user.setUserInfo("Some Country, 20 y.o");
+//        user.setVacations(new ArrayList<>());
         return user;
     }
 }
