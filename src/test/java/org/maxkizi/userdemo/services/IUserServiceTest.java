@@ -43,9 +43,12 @@ public class IUserServiceTest {
         service.delete(createdUser.getId());
     }
 
+//    удаление удаленного пользователя
     @Test(expected = UserNotFoundException.class)
     public void deleteByUnExistingId_Should_ThrowEx() {
-        service.delete(68L);
+        User createdUser = service.create(simpleUser());
+        service.delete(createdUser.getId());
+        service.delete(createdUser.getId());
     }
 
     @Test
@@ -81,6 +84,11 @@ public class IUserServiceTest {
         User user = service.create(simpleUser());
         User foundUser = service.findById(user.getId());
         Assert.assertEquals(simpleUser().getVacations().size(), foundUser.getVacations().size());
+    }
+
+    @Test
+    public void updateUserWithVacations_Should_Ok(){
+
     }
 
 

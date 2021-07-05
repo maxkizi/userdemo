@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import org.maxkizi.userdemo.converter.UserConverter;
 import org.maxkizi.userdemo.generated.dto.UserDto;
 import org.maxkizi.userdemo.generated.dto.UserShortDto;
-import org.maxkizi.userdemo.generated.dto.UserVacationDto;
 import org.maxkizi.userdemo.model.User;
 import org.maxkizi.userdemo.services.IUserService;
 import org.springframework.data.domain.Page;

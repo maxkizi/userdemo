@@ -63,7 +63,9 @@ public class UserServiceImpl extends AbstractBaseService<User, Long, QUser, User
 
     @Override
     public void delete(Long id) {
-        User user = get(id).orElseThrow(UserNotFoundException::new);
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        booleanBuilder.and(QUser.user.isDeleted.isFalse());
+        User user = get(booleanBuilder).orElseThrow(UserNotFoundException::new);
         user.setDeleted(true);
         save(user);
     }
