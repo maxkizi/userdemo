@@ -27,4 +27,11 @@ public class User extends BaseDeleteEntity {
     @OrderBy(value = "id")
     private List<UserVacation> vacations;
 
+    public List<UserVacation> getVacations() {
+        return vacations;
+    }
+
+    public void setVacations(List<UserVacation> vacations) {
+        this.vacations = vacations;
+    }
 }

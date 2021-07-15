@@ -1,7 +1,6 @@
 package org.maxkizi.userdemo.services.impl;
 
 import com.querydsl.core.BooleanBuilder;
-import liquibase.pro.packaged.B;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -52,10 +51,7 @@ public class UserServiceImpl extends AbstractBaseService<User, Long, QUser, User
 
     @Override
     public User update(Long id, User user) {
-        BooleanBuilder booleanBuilder = new BooleanBuilder();
-        booleanBuilder.and(QUser.user.isDeleted.isFalse());
-        booleanBuilder.and(QUser.user.id.eq(id));
-        User oldUser = get(booleanBuilder).orElseThrow(UserNotFoundException::new);
+        User oldUser = findById(id);
         user.setId(id);
         user.setCreatedAt(oldUser.getCreatedAt());
         return save(user);
@@ -63,10 +59,7 @@ public class UserServiceImpl extends AbstractBaseService<User, Long, QUser, User
 
     @Override
     public void delete(Long id) {
-        BooleanBuilder booleanBuilder = new BooleanBuilder();
-        booleanBuilder.and(QUser.user.isDeleted.isFalse());
-        booleanBuilder.and(QUser.user.id.eq(id));
-        User user = get(booleanBuilder).orElseThrow(UserNotFoundException::new);
+        User user = findById(id);
         user.setDeleted(true);
         save(user);
     }

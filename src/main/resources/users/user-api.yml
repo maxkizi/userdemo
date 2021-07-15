@@ -27,7 +27,7 @@ paths:
           schema:
             type: integer
           description: Pagination parametr, you can choose number of returning records on page
-          example: /users?per_page=10
+          example: /users?size=10
 
       description: Gets all users
       responses:
@@ -60,14 +60,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/FullUserDto'
+              $ref: '#/components/schemas/UserDto'
       responses:
         '200':
           description: A user object with auto-generated id
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FullUserDto'
+                $ref: '#/components/schemas/UserDto'
 
 
   /user/{id}:
@@ -90,7 +90,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FullUserDto'
+                $ref: '#/components/schemas/UserDto'
 
 
     put:
@@ -101,7 +101,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/FullUserDto'
+              $ref: '#/components/schemas/UserDto'
 
       responses:
         '200':
@@ -109,7 +109,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FullUserDto'
+                $ref: '#/components/schemas/UserDto'
 
     delete:
       description: Delete user by id
@@ -138,18 +138,18 @@ components:
           type: integer
         last:
           type: boolean
-          first:
-            type: boolean
-          size:
-            type: integer
-          number_of_elements:
-            type: integer
-          number:
-            type: integer
-          sort:
-            $ref: '../pageable/pageable.yml#/components/schemas/Sort'
-          empty:
-            type: boolean
+        first:
+           type: boolean
+        size:
+           type: integer
+        number_of_elements:
+           type: integer
+        number:
+           type: integer
+        sort:
+           $ref: '../pageable/pageable.yml#/components/schemas/Sort'
+        empty:
+           type: boolean
 
     UserDto:
       type: object
